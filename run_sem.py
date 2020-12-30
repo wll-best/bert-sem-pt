@@ -5,7 +5,7 @@ from main import main
 if __name__ == "__main__":
 
     model_name = "BertOrigin"
-    label_list = ['0','1','2','3','4']
+    label_list = ['1','2','3','4','5']
     data_dir = "./sem"
     output_dir = ".sem_output/"
     cache_dir = ".sem_cache/"
