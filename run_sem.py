@@ -46,7 +46,7 @@ if __name__ == "__main__":
     main(config, config.save_name, label_list)
 
     #命令行语句
-    #python3 run_sem.py --max_seq_length=100 --num_train_epochs=5.0 --gradient_accumulation_steps=8 --print_step=100  # train and test
-    #python3 run_SST2.py --max_seq_length=100   # test
+    #python3 run_sem.py --max_seq_length=100 --num_train_epochs=5.0 --do_train  --gradient_accumulation_steps=8 --print_step=100  # train and test
+    #python3 run_sem.py --max_seq_length=100   # test
         
 
