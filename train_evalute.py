@@ -112,7 +112,7 @@ output_model_file, output_config_file, log_dir, print_step, early_stop):
                         writer.add_scalar(label + ":" + "f1/dev",
                                         dev_report[label]['f1-score'], c)
 
-                    print_list = ['macro avg', 'weighted avg']
+                    print_list = ['micro avg','macro avg', 'weighted avg']
                     for label in print_list:
                         writer.add_scalar(label + ":" + "f1/train",
                                         train_report[label]['f1-score'], c)
