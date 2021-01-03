@@ -39,7 +39,7 @@ def classifiction_metric(preds, labels, label_list):
     labels_list = [i for i in range(len(label_list))]
 
     report = metrics.classification_report(labels, preds, labels=labels_list, target_names=label_list, digits=5, output_dict=True)
-    
+    #digits：int，输出浮点值的位数．
     if len(label_list) > 2:
         auc = 0.5
     else:
