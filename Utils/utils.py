@@ -37,7 +37,7 @@ def classifiction_metric(preds, labels, label_list):
     acc = metrics.accuracy_score(labels, preds)
 
     labels_list = [i for i in range(len(label_list))]
-
+    #多标签分类：micro - F1 = micro - precision = micro - recall = accuracy
     report = metrics.classification_report(labels, preds, labels=labels_list, target_names=label_list, digits=5, output_dict=True)
     #digits：int，输出浮点值的位数．
     if len(label_list) > 2:

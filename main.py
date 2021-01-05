@@ -182,7 +182,7 @@ def main(config, model_times, label_list):
     for label in label_list:
         print('\t {}: Precision: {} | recall: {} | f1 score: {}'.format(
             label, test_report[label]['precision'], test_report[label]['recall'], test_report[label]['f1-score']))
-    print_list = ['micro avg','macro avg','weighted avg']
+    print_list = ['macro avg','weighted avg']
 
     for label in print_list:
         print('\t {}: Precision: {} | recall: {} | f1 score: {}'.format(
