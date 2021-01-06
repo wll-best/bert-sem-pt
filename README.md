@@ -52,7 +52,7 @@ tensorflow： pip install tensorflow
 python3 run_SST2.py --max_seq_length=65 --num_train_epochs=5.0 --do_train --gpu_ids="1" --gradient_accumulation_steps=8 --print_step=100  # train and test
 
 python3 run_SST2.py --max_seq_length=65   # test
-```
+
 
 | 模型                 | loss  | acc    | f1     |
 | -------------------- | ----- | ------ | ------ |
@@ -62,7 +62,7 @@ python3 run_SST2.py --max_seq_length=65   # test
 | BertRCNN (base)      | 0.145 | 95.151 | 95.15  |
 | BertCNNPlus (base)   | 0.160 | 94.508 | 94.51  |
 
-```
+
 ## 如何适配自己的数据集
 
 对于新的数据集，只需要将你的数据集转化为对应的 tsv 格式：
