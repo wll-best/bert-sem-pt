@@ -48,11 +48,10 @@ tensorflow： pip install tensorflow
 ## Results
 
 ### SST-2
-
+```
 python3 run_SST2.py --max_seq_length=65 --num_train_epochs=5.0 --do_train --gpu_ids="1" --gradient_accumulation_steps=8 --print_step=100  # train and test
-
 python3 run_SST2.py --max_seq_length=65   # test
-
+```
 
 | 模型                 | loss  | acc    | f1     |
 | -------------------- | ----- | ------ | ------ |
