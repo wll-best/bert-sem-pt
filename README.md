@@ -47,7 +47,10 @@ tensorflow： pip install tensorflow
 
 ## Results
 
+### SST-2
+
 python3 run_SST2.py --max_seq_length=65 --num_train_epochs=5.0 --do_train --gpu_ids="1" --gradient_accumulation_steps=8 --print_step=100  # train and test
+
 python3 run_SST2.py --max_seq_length=65   # test
 ```
 
@@ -59,14 +62,14 @@ python3 run_SST2.py --max_seq_length=65   # test
 | BertRCNN (base)      | 0.145 | 95.151 | 95.15  |
 | BertCNNPlus (base)   | 0.160 | 94.508 | 94.51  |
 
-
+```
 ## 如何适配自己的数据集
 
 对于新的数据集，只需要将你的数据集转化为对应的 tsv 格式：
 ```
 sentence label
 ```
-然后建立一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
+然后简历一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
 
 ## 关于保存对应的结果
 
