@@ -27,20 +27,7 @@ tensorflow： pip install tensorflow
 
 ## 数据集
 
-打算使用多个文本分类数据集来进行试验，以获得更佳的调参体验，主要包含情感分类， 问题分类以及主题分类三种：
-
-- 情感分类： 采用 IMDB， SST-2, 以及 Yelp 数据集。
-- 问题分类： 采用 TREC 和 Yahoo! Answers 数据集。
-- 主题分类： 采用 AG's News，DBPedia 以及 CNews。
-
-仓库采用了三个数据集，分别是 SST-2 情感分类， Yelp多标签分类， THUCNews 多标签分类。 
-
-其中，  [THUCNews](http://thuctc.thunlp.org/)  只选取了一个子集， 该子集中包括了10个分类，每个分类6500条数据。
-
-```
-sst-2: 链接：https://pan.baidu.com/s/1ax9uCjdpOHDxhUhpdB0d_g  提取码：rxbi 
-cnews: 链接：https://pan.baidu.com/s/19sOrAxSKn3jCIvbVoD_-ag  提取码：rstb 
-```
+- 情感分类： 采用 SST-2, 以及 semeval 数据集。
 
 ## 关于 Bert 
 
@@ -54,33 +41,12 @@ cnews: 链接：https://pan.baidu.com/s/19sOrAxSKn3jCIvbVoD_-ag  提取码：rst
 
 - 没有删除在单机多卡上的逻辑，只是删除了分布式运算的逻辑，主要是考虑到大多数实验大家都没有必要去用到分布式。
 - 删除了采用 fp16 的逻辑， 考虑到文本分类所需的资源并没有那么大， 采用 默认的32位浮点类型在大多数情况下是可以的， 没必要损失精度。其实最主要的还是精简逻辑。
-- **注意**： Bert 的参数量随着文本长度的增加呈现接近线性变化的趋势， 而 THUCNews 数据集的文本长度大多在1000-4000之间，这对于大多数机器是不可承受的， 测试在单1080ti上， 文本长度设置为150左右已经是极限。
+- **注意**： Bert 的参数量随着文本长度的增加呈现接近线性变化的趋势, 测试在单1080ti上， 文本长度设置为150左右已经是极限。
 - **注意：** 我有用 tensorboard 将相关的日志信息保存，推荐采用 tensorboard 进行分析。
 
 
 ## Results
 
-### THUCNews
-
-**注意：**  THUCNews 数据集中的样本长度十分的长，上面说到 Bert 本身对于序列长度十分敏感，因此我在我单1080ti下所能支持的最大长度。这也导致运行时间的线性增加，1个epoch 大概需要1个半小时到2个小时之间
-
-```
-python3 run_CNews.py --max_seq_length=512 --num_train_epochs=5.0 --do_train --gpu_ids="4 5 6 7" --gradient_accumulation_steps=8 --print_step=500  # gpu_ids 选择 gpu， 如果是单gpu， 选择 max_seq_length 为150较为合适(1080ti)
-python3 run_CNews.py --max_seq_length=512
-```
-
-model_name | loss | acc | f1 
---- |--- | --- | --- 
-BertOrigin(base) | 0.088 | 97.40 | 97.39 
- |       |  |  
- |       |  |  
- |       |  |  
- BertHAN | 0.103 | 97.49 | 97.48 
- |       |  |  
-
-### SST-2
-
-```
 python3 run_SST2.py --max_seq_length=65 --num_train_epochs=5.0 --do_train --gpu_ids="1" --gradient_accumulation_steps=8 --print_step=100  # train and test
 python3 run_SST2.py --max_seq_length=65   # test
 ```
@@ -100,7 +66,7 @@ python3 run_SST2.py --max_seq_length=65   # test
 ```
 sentence label
 ```
-然后简历一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
+然后建立一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
 
 ## 关于保存对应的结果
 
