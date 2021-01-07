@@ -4,13 +4,7 @@
 
 ## Requirements
 
-下面命令还未经过完整测试， 可以参考。
-
-推荐使用 Anconda 来管理包环境， 我采用的是 Anconda python 3.7，其余 3.0 以上应该都可以， 推荐新建一个环境来做测试。
-
 ```
-conda create -n BertText  # 创建新环境
-conda activate BertText   # 激活指定环境
 
 Pytorch ： [conda install pytorch torchvision cudatoolkit=9.0 -c pytorch](https://pytorch.org/get-started/locally/)
 
@@ -27,7 +21,7 @@ tensorflow： pip install tensorflow
 
 ## 数据集
 
-- 情感分类： 采用 SST-2, 以及 semeval 数据集。
+采用 SST-2, 以及 semeval 数据集。
 
 ## 关于 Bert 
 
@@ -68,7 +62,7 @@ python3 run_SST2.py --max_seq_length=65   # test
 ```
 sentence label
 ```
-然后简历一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
+然后建立一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
 
 ## 关于保存对应的结果
 
