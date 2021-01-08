@@ -20,7 +20,7 @@ class BertCNNPlus(BertPreTrainedModel):
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
 
         self.convs = Conv1d(config.hidden_size, n_filters, filter_sizes)
-
+        #这里加了+ config.hidden_size
         self.classifier = nn.Linear(len(filter_sizes) * n_filters + config.hidden_size, num_labels)
         self.apply(self.init_bert_weights)
 
@@ -37,7 +37,7 @@ class BertCNNPlus(BertPreTrainedModel):
         # hidden_state: [batch_size, bert_dim=768]
 
         encoded_layers = self.dropout(encoded_layers)
-        hidden_state = self.dropout(hidden_state)
+        hidden_state = self.dropout(hidden_state)#新加的
 
         encoded_layers = encoded_layers.permute(0, 2, 1)
         # encoded_layers: [batch_size, bert_dim, seq_len]
@@ -48,7 +48,7 @@ class BertCNNPlus(BertPreTrainedModel):
                   for conv in conved]
 
         cat = torch.cat(pooled, dim=1)
-        cat = torch.cat([cat, hidden_state], dim=1)
+        cat = torch.cat([cat, hidden_state], dim=1)#新加的
 
         logits = self.classifier(cat)
 
