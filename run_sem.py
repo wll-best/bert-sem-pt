@@ -15,6 +15,9 @@ if __name__ == "__main__":
     bert_vocab_file = "./bert-base-uncased-vocab.txt"
     bert_model_dir = "./bert-base-uncased"
 
+    # bert_vocab_file = "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"
+    # bert_model_dir = "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased.tar.gz"
+
     # # bert-large
     # bert_vocab_file = "/search/hadoop02/suanfa/songyingxin/pytorch_Bert/bert-large-uncased-vocab.txt"
     # bert_model_dir = "/search/hadoop02/suanfa/songyingxin/pytorch_Bert/bert-large-uncased"
@@ -46,7 +49,7 @@ if __name__ == "__main__":
     main(config, config.save_name, label_list)
 
     #命令行语句
-    #python3 run_sem.py --max_seq_length=100 --num_train_epochs=5.0 --do_train --gradient_accumulation_steps=8 --print_step=100  # train and test
-    #python3 run_sem.py --max_seq_length=100   # test
+    #python3 run_sem.py --max_seq_length=128 --num_train_epochs=10.0 --do_train --gradient_accumulation_steps=8 --print_step=100  # train and test
+    #python3 run_sem.py --max_seq_length=128   # test
         
 
