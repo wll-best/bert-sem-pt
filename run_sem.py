@@ -12,11 +12,11 @@ if __name__ == "__main__":
     log_dir = ".sem_log/"
 
     # bert-base
-    bert_vocab_file = "./bert-base-uncased-vocab.txt"
-    bert_model_dir = "./bert-base-uncased"
+#     bert_vocab_file = "./bert-base-uncased-vocab.txt"
+#     bert_model_dir = "./bert-base-uncased"
 
-    # bert_vocab_file = "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"
-    # bert_model_dir = "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased.tar.gz"
+    bert_vocab_file = "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"
+    bert_model_dir = "https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased.tar.gz"
 
     # # bert-large
     # bert_vocab_file = "/search/hadoop02/suanfa/songyingxin/pytorch_Bert/bert-large-uncased-vocab.txt"
