@@ -46,9 +46,6 @@ sentence label
 ```
 然后建立一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
 
-## 关于保存对应的结果
-
-有同学提出要求能够最终获得 `id, pred_label, true_label` 三元组， 考虑到 Pytorch 中无法使用字符串，因此采用数字0，1，...，n 表示，因此如果是想要对应真实的 id 的话，需要我们将数字与id进行对应，其实很简单， Excel 排个序然后复制粘贴就行。
 
 
 
