@@ -21,7 +21,7 @@ tensorflow： pip install tensorflow
 
 ## 数据集
 
-采用 SST-2, 以及 semeval 数据集。
+采用sem数据集。
 
 ## 关于 Bert 
 
@@ -37,24 +37,6 @@ tensorflow： pip install tensorflow
 - 删除了采用 fp16 的逻辑， 考虑到文本分类所需的资源并没有那么大， 采用 默认的32位浮点类型在大多数情况下是可以的， 没必要损失精度。其实最主要的还是精简逻辑。
 - **注意**： Bert 的参数量随着文本长度的增加呈现接近线性变化的趋势, 测试在单1080ti上， 文本长度设置为150左右已经是极限。
 - **注意：** 我有用 tensorboard 将相关的日志信息保存，推荐采用 tensorboard 进行分析。
-
-
-## Results
-
-### SST-2
-```
-python3 run_SST2.py --max_seq_length=65 --num_train_epochs=5.0 --do_train --gpu_ids="1" --gradient_accumulation_steps=8 --print_step=100  # train and test
-python3 run_SST2.py --max_seq_length=65   # test
-```
-
-| 模型                 | loss  | acc    | f1     |
-| -------------------- | ----- | ------ | ------ |
-| BertOrigin(base)     | 0.170 | 94.458 | 94.458 |
-| BertCNN (5,6) (base) | 0.148 | 94.607 | 94.62  |
-| BertATT (base)       | 0.162 | 94.211 | 94.22  |
-| BertRCNN (base)      | 0.145 | 95.151 | 95.15  |
-| BertCNNPlus (base)   | 0.160 | 94.508 | 94.51  |
-
 
 ## 如何适配自己的数据集
 
