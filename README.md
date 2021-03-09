@@ -42,7 +42,7 @@ tensorflow： pip install tensorflow
 
 对于新的数据集，只需要将你的数据集转化为对应的 tsv 格式：
 ```
-sentence label
+sentence\tlabel
 ```
 然后建立一个 `run_your_dataset.py`， 然后模仿 `run_SST2.py` 修改对应的文件夹和`label_list`， 其余的文件完全不需要改动， 不需要设置 `Processor`， 因为我将这部分重新封装了一下。
 
