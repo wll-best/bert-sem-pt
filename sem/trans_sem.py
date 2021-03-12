@@ -4,6 +4,31 @@ from pytorch_pretrained_bert.tokenization import BertTokenizer
 import numpy as np
 import json
 
+def reformat_data(oldfile,newfile):
+    #将数据集改造成glove要用的格式，来源：https://github.com/AnubhavGupta3377/Text-Classification-Models-Pytorch
+    # import sys
+    # import os
+    # if __name__ == '__main__':
+    #     if len(sys.argv) < 2:
+    #         print("Expected filename as an argument")
+    #         sys.exit()
+    #     filepath = sys.argv[1]
+    #     path, filename = os.path.split(filepath)
+    #     name, ext = os.path.splitext(os.path.basename(filename))
+    #     new_filepath = os.path.join(path, 'processed_' + name + '.txt')
+    with open(newfile, 'w', encoding='utf-8') as new_file:
+        with open(oldfile, 'r', encoding='utf-8') as old_file:
+            for line in old_file:
+                # question, number = line.strip().split('\t')
+                # y = '2' if float(number) >= 0.5 else '1'
+                # label = '__label__' + y
+                # new_line = label + ' , ' + question + '\n'
+                sentence,labe=line.strip().split('\t')
+                label = '__label__' + labe
+                new_line = label + ' , ' + sentence + '\n'
+                new_file.write(new_line)
+    print('Finished')
+
 def trans(input_file, output_file):
     #tsv文件转成json文件
     dump = []
@@ -54,14 +79,20 @@ def analysis(filename, type, tokenizer):
     plt.show()
 
 if __name__ == "__main__":
+
+
+    # tokenizer = BertTokenizer.from_pretrained(
+    #     "../bert-base-uncased-vocab.txt", do_lower_case=True)
+    #
+    # analysis("train.tsv", "train", tokenizer)
+    # analysis("dev.tsv", "dev", tokenizer)
+    # analysis("test.tsv", "test", tokenizer)
+    #句子长度在tokenizer之后变小了，那bert到底是看这个还是原句长啊？？？
+
+    #---------以下代码与本程序无关----------
     # trans("train.tsv", "train.json")
     # trans("dev.tsv", "dev.json")
     # trans("test.tsv", "test.json")
 
-    tokenizer = BertTokenizer.from_pretrained(
-        "../bert-base-uncased-vocab.txt", do_lower_case=True)
-
-    analysis("train.tsv", "train", tokenizer)
-    analysis("dev.tsv", "dev", tokenizer)
-    analysis("test.tsv", "test", tokenizer)
-    #句子长度在tokenizer之后变小了，那bert到底是看这个还是原句长啊？？？
+    # 将数据集改造-->4.https://github.com/AnubhavGupta3377/Text-Classification-Models-Pytorch
+    reformat_data('dev.tsv','processed_dev.txt')
