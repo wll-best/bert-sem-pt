@@ -35,13 +35,13 @@ def load_data(data_dir, tokenizer, max_length, batch_size, data_type, label_list
         load_func = load_tsv_dataset
 
     if data_type == "train":
-        train_file = os.path.join(data_dir, 'train.tsv')
+        train_file = os.path.join(data_dir, 'ntrain.tsv')
         examples = load_func(train_file, data_type)
     elif data_type == "dev":
-        dev_file = os.path.join(data_dir, 'dev.tsv')
+        dev_file = os.path.join(data_dir, 'ndev.tsv')
         examples = load_func(dev_file, data_type)
     elif data_type == "test":
-        test_file = os.path.join(data_dir, 'test.tsv')
+        test_file = os.path.join(data_dir, 'ntest.tsv')
         examples = load_func(test_file, data_type)
     else:
         raise RuntimeError("should be train or dev or test")
