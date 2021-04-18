@@ -24,11 +24,11 @@ class BertATT(BertPreTrainedModel):
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
         self.classifier = nn.Linear(config.hidden_size, num_labels)
 
-        self.W_w = nn.Parameter(torch.Tensor(config.hidden_size, config.hidden_size))
-        self.u_w = nn.Parameter(torch.Tensor(config.hidden_size, 1))
+        self.W_w = nn.Parameter(torch.Tensor(config.hidden_size, config.hidden_size))###
+        self.u_w = nn.Parameter(torch.Tensor(config.hidden_size, 1))###
 
-        nn.init.uniform_(self.W_w, -0.1, 0.1)
-        nn.init.uniform_(self.u_w, -0.1, 0.1)
+        nn.init.uniform_(self.W_w, -0.1, 0.1)###
+        nn.init.uniform_(self.u_w, -0.1, 0.1)###
 
         self.apply(self.init_bert_weights)
 
@@ -40,21 +40,21 @@ class BertATT(BertPreTrainedModel):
             attention_mask: 区分 padding 与 token， 1表示是token，0 为padding
         """
         encoded_layers, _ = self.bert(
-            input_ids, token_type_ids, attention_mask, output_all_encoded_layers=False)
+            input_ids, token_type_ids, attention_mask, output_all_encoded_layers=False)##取最后一层隐层
 
         encoded_layers = self.dropout(encoded_layers)
         # encoded_layers: [batch_size, seq_len, bert_dim=768]
 
-        score = torch.tanh(torch.matmul(encoded_layers, self.W_w))
+        score = torch.tanh(torch.matmul(encoded_layers, self.W_w))###torch.matmul是tensor的乘法，输入可以是高维的。
         # score: [batch_size, seq_len, bert_dim]
 
-        attention_weights = F.softmax(torch.matmul(score, self.u_w), dim=1)
+        attention_weights = F.softmax(torch.matmul(score, self.u_w), dim=1)###
         # attention_weights: [batch_size, seq_len, 1]
 
-        scored_x = encoded_layers * attention_weights
+        scored_x = encoded_layers * attention_weights###
         # scored_x : [batch_size, seq_len, bert_dim]
 
-        feat = torch.sum(scored_x, dim=1)
+        feat = torch.sum(scored_x, dim=1)###
         # feat: [batch_size, bert_dim=768]
         logits = self.classifier(feat)
         # logits: [batch_size, output_dim]
