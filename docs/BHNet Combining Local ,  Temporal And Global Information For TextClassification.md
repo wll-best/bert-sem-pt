@@ -1,6 +1,6 @@
 # BHNet: Combining Local ,  Sequential And Global Information For TextClassification
 
-tags: 我的论文
+tags: 不是我的论文
 
 ---
 
