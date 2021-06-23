@@ -10,9 +10,9 @@ if __name__ == "__main__":
     model_name = "BertOrigin"
     label_list = ['1','2','3','4','5']
     data_dir = "./sem"
-    output_dir = ".sem_output/"
-    cache_dir = ".sem_cache/"
-    log_dir = ".sem_log/"
+    output_dir = "./sem_output"
+    cache_dir = "./sem_cache"
+    log_dir = "./sem_log"
     seed=42
 
     #为了复现
