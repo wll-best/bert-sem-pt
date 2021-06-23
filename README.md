@@ -21,7 +21,7 @@ tensorflow： pip install tensorflow
 
 ## 数据集
 
-采用sem数据集。
+采用sem数据集。。。
 
 ## 关于 Bert 
 
