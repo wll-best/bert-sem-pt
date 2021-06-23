@@ -1,6 +1,9 @@
 # coding=utf-8
 from main import main
-
+import torch
+import numpy as np
+import random
+import os
 
 if __name__ == "__main__":
 
@@ -10,6 +13,19 @@ if __name__ == "__main__":
     output_dir = ".sem_output/"
     cache_dir = ".sem_cache/"
     log_dir = ".sem_log/"
+    seed=42
+
+    #为了复现
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)  # 为所有GPU设置随机种子
+    torch.backends.cudnn.enabled = False
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    os.environ['PYTHONHASHSEED'] = str(seed)  # 为了禁止hash随机化，使得实验可复现。
+
 
     # bert-base
 #     bert_vocab_file = "./bert-base-uncased-vocab.txt"

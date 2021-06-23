@@ -2,7 +2,8 @@
 
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, TensorDataset)
-
+import random
+import numpy as np
 
 class InputExample(object):
     """单句子分类的 Example 类"""
@@ -121,6 +122,10 @@ def _truncate_seq_pair(tokens_a, tokens_b, max_length):
         else:
             tokens_b.pop()
 
+def seed_worker(worker_id):
+    worker_seed = torch.initial_seed() % 2 ** 32
+    np.random.seed(worker_seed)
+    random.seed(worker_seed)
 
 def convert_features_to_tensors(features, batch_size, data_type):
     """ 将 features 转化为 tensor，并塞入迭代器
@@ -146,9 +151,9 @@ def convert_features_to_tensors(features, batch_size, data_type):
 
     sampler = RandomSampler(data)
     if data_type == "test":
-        dataloader = DataLoader(data, sampler=sampler, batch_size=batch_size)
+        dataloader = DataLoader(data, sampler=sampler, batch_size=batch_size,worker_init_fn=seed_worker)
     else:
         dataloader = DataLoader(data, sampler=sampler,
-                                batch_size=batch_size, drop_last=True)
+                                batch_size=batch_size, drop_last=True,worker_init_fn=seed_worker)
 
     return dataloader
