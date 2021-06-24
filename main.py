@@ -190,7 +190,7 @@ def main(config, model_times, label_list):
 
 
     #结果保存到"模型名+学习率.txt"  config.model_name, config.learning_rate
-    with open('./sem_result'+ config.model_name + config.learning_rate + '.txt', "a") as writer:
+    with open('./sem_result'+ config.model_name + str(config.learning_rate) + '.txt', "a") as writer:
         writer.write("\t\n***** Running test *****bert-pt-sem\t\n")
         writer.write("model_name : %s\t" % config.model_name)
         writer.write("learning_rate : %s\t" % config.learning_rate)
