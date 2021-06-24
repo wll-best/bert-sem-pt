@@ -104,10 +104,10 @@ def get_args(data_dir, output_dir, cache_dir, bert_vocab_file, bert_model_dir, l
                         help="多少步进行模型保存以及日志信息写入")
 
     #CNN 参数
-    parser.add_argument("--filter_num", default=200,
-                        type=int, help="filter 的数量")
-    parser.add_argument("--filter_sizes", default="1 2 3 4 5 6 7 8 9 10",
-                        type=str, help="filter 的 size")
+    parser.add_argument("--filter_num", default=32,
+                        type=int, help="filter 的数量")#200
+    parser.add_argument("--filter_sizes", default="2 3 4 5",
+                        type=str, help="filter 的 size")#"1 2 3 4 5 6 7 8 9 10"
 
     parser.add_argument("--early_stop", type=int, default=50,
                         help="提前终止，多少次dev loss 连续增大，就不再训练")
