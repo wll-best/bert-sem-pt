@@ -187,3 +187,13 @@ def main(config, model_times, label_list):
     for label in print_list:
         print('\t {}: Precision: {} | recall: {} | f1 score: {}'.format(
             label, test_report[label]['precision'], test_report[label]['recall'], test_report[label]['f1-score']))
+
+
+    #结果保存到"模型名+学习率.txt"  config.model_name, config.learning_rate
+    with open('./sem_result'+ config.model_name + config.learning_rate + '.txt', "a") as writer:
+        writer.write("\t\n***** Running test *****bert-pt-sem\t\n")
+        writer.write("model_name : %s\t" % config.model_name)
+        writer.write("learning_rate : %s\t" % config.learning_rate)
+        #writer.write("test_loss : %s\t" % test_loss)
+        writer.write("test_acc : %s\t" % test_acc)
+        writer.write("test_macro-f1 : %s\t" % test_report['macro avg']['f1-score'])
