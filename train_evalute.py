@@ -101,8 +101,8 @@ output_model_file, output_config_file, log_dir, print_step, early_stop):
                     writer.add_scalar("loss/train", train_loss, c)
                     writer.add_scalar("loss/dev", dev_loss, c)
 
-                    writer.add_scalar("acc/train", train_acc, c)
-                    writer.add_scalar("acc/dev", dev_acc, c)
+                    writer.add_scalar("micro_avg_f1/train", train_acc, c)#acc=micro_avg_f1
+                    writer.add_scalar("micro_avg_f1/dev", dev_acc, c)#acc=micro_avg_f1
 
                     writer.add_scalar("auc/train", train_auc, c)
                     writer.add_scalar("auc/dev", dev_auc, c)
