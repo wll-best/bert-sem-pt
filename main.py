@@ -202,8 +202,8 @@ def main(config, model_times, label_list):
     df.to_csv(ntest_bertclassi_label, sep='\t')
 
 
-    # print("-------------- Test -------------")
-    # print(f'\t  Loss: {test_loss: .3f} | Acc: {test_acc*100: .3f} % | AUC:{test_auc}')
+    print("-------------- Test -------------")
+    print(f'\t  Loss: {test_loss: .3f} | Acc: {test_acc*100: .3f} % | AUC:{test_auc}')
 
     for label in label_list:
         print('\t {}: Precision: {} | recall: {} | f1 score: {}'.format(
