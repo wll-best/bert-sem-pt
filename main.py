@@ -18,6 +18,20 @@ from Utils.load_datatsets import load_data
 
 from train_evalute import train, evaluate, evaluate_save
 
+import csv
+import pandas as pd
+def rea_sem(path):#得到文本列表
+    with open(path, 'r', encoding='utf_8') as f:
+        reader = csv.reader(f, delimiter="\t")
+        lines = []
+        text = []
+        for line in reader:
+            lines.append(line)
+        for (i, line) in enumerate(lines):
+            if i == 0:
+                continue
+            text.append(line[0])
+        return  text#返回句子数组
 
 def main(config, model_times, label_list):
 
@@ -174,10 +188,22 @@ def main(config, model_times, label_list):
     criterion = criterion.to(device)
 
     # test the model
-    test_loss, test_acc, test_report, test_auc, all_idx, all_labels, all_preds = evaluate_save(
+    test_loss, test_acc, test_report, all_idx, all_logits, all_labels, all_preds = evaluate_save(
         model, test_dataloader, criterion, device, label_list)
-    print("-------------- Test -------------")
-    print(f'\t  Loss: {test_loss: .3f} | Acc: {test_acc*100: .3f} % | AUC:{test_auc}')
+
+    #生成ntest_bert_cnn_label.tsv
+    text_li= rea_sem(os.path.join(config.data_dir, 'ntest.tsv'))  # 为了读文本新增这一行
+    # dataframe保存带标签的预测文件ntest_label.tsv,格式：id,text,label,predict_label
+    df = pd.DataFrame(columns=['text', 'label', 'predict_label'])
+    df['text'] = text_li
+    df['predict_label'] = all_preds
+    df['label'] = all_labels
+    ntest_bertclassi_label = os.path.join(config.output_dir, 'ntest_'+config.model_name+'_label.tsv')
+    df.to_csv(ntest_bertclassi_label, sep='\t')
+
+
+    # print("-------------- Test -------------")
+    # print(f'\t  Loss: {test_loss: .3f} | Acc: {test_acc*100: .3f} % | AUC:{test_auc}')
 
     for label in label_list:
         print('\t {}: Precision: {} | recall: {} | f1 score: {}'.format(
@@ -197,3 +223,6 @@ def main(config, model_times, label_list):
         #writer.write("test_loss : %s\t" % test_loss)
         writer.write("test_acc : %s\t" % test_acc)
         writer.write("test_macro-f1 : %s\t" % test_report['macro avg']['f1-score'])
+
+    #
+    np.savetxt(config.output_dir + '/all_logits_'+config.model_name+'.txt', all_logits.reshape(-1, 5))

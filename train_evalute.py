@@ -7,7 +7,7 @@ from tensorboardX import SummaryWriter
 import time
 
 from Utils.utils import classifiction_metric
-
+import torch.nn.functional as F
 
 def train(epoch_num, n_gpu, model, train_dataloader, dev_dataloader, 
 optimizer, criterion, gradient_accumulation_steps, device, label_list, 
@@ -177,13 +177,14 @@ def evaluate(model, dataloader, criterion, device, label_list):
     return epoch_loss/len(dataloader), acc, report, auc
 
 
-def evaluate_save(model, dataloader, criterion, device, label_list):
+def evaluate_save(model, dataloader, criterion, device, label_list):#用于测试集
 
     model.eval()
 
     all_preds = np.array([], dtype=int)
     all_labels = np.array([], dtype=int)
     all_idxs = np.array([], dtype=int)
+    all_logits = np.array([], dtype=int)  # 每种分类的可能性数组
 
     epoch_loss = 0
 
@@ -198,6 +199,9 @@ def evaluate_save(model, dataloader, criterion, device, label_list):
         loss = criterion(logits.view(-1, len(label_list)), label_ids.view(-1))
 
         preds = logits.detach().cpu().numpy()
+
+        all_logits = np.append(all_logits, F.softmax(logits.detach().cpu(), dim=1))  # 每种分类的可能性数组
+
         outputs = np.argmax(preds, axis=1)
         all_preds = np.append(all_preds, outputs)
 
@@ -210,4 +214,4 @@ def evaluate_save(model, dataloader, criterion, device, label_list):
         epoch_loss += loss.mean().item()
 
     acc, report, auc = classifiction_metric(all_preds, all_labels, label_list)
-    return epoch_loss/len(dataloader), acc, report, auc, all_idxs, all_labels, all_preds
+    return epoch_loss/len(dataloader), acc, report, all_idxs, all_logits, all_labels, all_preds
